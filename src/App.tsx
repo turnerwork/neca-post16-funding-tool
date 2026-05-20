@@ -68,8 +68,7 @@ export default function App() {
         )}
 
         <footer className="mt-10 border-t border-neca-black/10 pt-6 text-xs text-neca-black/50">
-          Styling per North East MSA brand guidelines (Hanken Grotesk, NECA colour
-          palette).
+          Produced by www.jamesturner.work, May 2026
         </footer>
       </main>
     </div>
