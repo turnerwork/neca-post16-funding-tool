@@ -3,7 +3,12 @@ import { AllocationChart } from "./components/AllocationChart";
 import { Header } from "./components/Header";
 import { WeightingForm } from "./components/WeightingForm";
 import { DEFAULT_WEIGHTINGS, snapWeighting } from "./constants";
-import type { CategoryKey, LocalAuthority, Weightings } from "./types";
+import type {
+  AllocationResult,
+  CategoryKey,
+  LocalAuthority,
+  Weightings,
+} from "./types";
 import { calculateAllocations, sumWeightings } from "./utils/allocation";
 import { CSV_PATH } from "./config";
 import { loadLocalAuthorities } from "./utils/parseCsv";
@@ -13,6 +18,9 @@ export default function App() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [weightings, setWeightings] = useState<Weightings>({ ...DEFAULT_WEIGHTINGS });
+  const [lastCommittedAllocations, setLastCommittedAllocations] = useState<
+    AllocationResult[]
+  >([]);
 
   useEffect(() => {
     loadLocalAuthorities(CSV_PATH)
@@ -30,6 +38,17 @@ export default function App() {
     if (!isValid || authorities.length === 0) return [];
     return calculateAllocations(authorities, weightings);
   }, [authorities, weightings, isValid]);
+
+  useEffect(() => {
+    if (allocations.length > 0) {
+      setLastCommittedAllocations(allocations);
+    }
+  }, [allocations]);
+
+  const chartResults =
+    allocations.length > 0 ? allocations : lastCommittedAllocations;
+  const showingPreviousValidResult =
+    !isValid && chartResults.length > 0 && authorities.length > 0;
 
   const handleWeightChange = (key: CategoryKey, value: number) => {
     setWeightings((prev) => ({ ...prev, [key]: snapWeighting(value) }));
@@ -63,7 +82,11 @@ export default function App() {
               onChange={handleWeightChange}
               onReset={handleReset}
             />
-            <AllocationChart results={allocations} disabled={!isValid} />
+            <AllocationChart
+              results={chartResults}
+              disabled={chartResults.length === 0}
+              isStale={showingPreviousValidResult}
+            />
           </div>
         )}
 

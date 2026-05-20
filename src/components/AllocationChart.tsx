@@ -46,6 +46,7 @@ function shortenLaName(name: string): string {
 interface AllocationChartProps {
   results: AllocationResult[];
   disabled: boolean;
+  isStale?: boolean;
 }
 
 function CustomTooltip({
@@ -68,7 +69,11 @@ function CustomTooltip({
   );
 }
 
-export function AllocationChart({ results, disabled }: AllocationChartProps) {
+export function AllocationChart({
+  results,
+  disabled,
+  isStale = false,
+}: AllocationChartProps) {
   const chartData: ChartRow[] = results.map((row) => ({
     name: row.name,
     shortName: shortenLaName(row.name),
@@ -109,7 +114,7 @@ export function AllocationChart({ results, disabled }: AllocationChartProps) {
         </p>
       </div>
 
-      <div className="h-[480px] w-full min-w-0">
+      <div className="relative h-[480px] w-full min-w-0">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={chartData}
@@ -136,7 +141,11 @@ export function AllocationChart({ results, disabled }: AllocationChartProps) {
             <Tooltip content={<CustomTooltip />} cursor={{ fill: "#00478a10" }} />
             <Bar dataKey="funding" radius={[0, 6, 6, 0]} maxBarSize={32}>
               {chartData.map((row) => (
-                <Cell key={`cell-${row.name}`} fill={getAuthorityColour(row.name)} />
+                <Cell
+                  key={`cell-${row.name}`}
+                  fill={getAuthorityColour(row.name)}
+                  fillOpacity={isStale ? 0.45 : 1}
+                />
               ))}
               <LabelList
                 dataKey="funding"
@@ -167,7 +176,7 @@ export function AllocationChart({ results, disabled }: AllocationChartProps) {
                       y={centerY}
                       textAnchor="end"
                       dominantBaseline="middle"
-                      fill="#f8f8f8"
+                      fill={isStale ? "#d9d9d9" : "#f8f8f8"}
                       fontSize={11}
                       fontWeight={500}
                       style={{ textShadow: "0 1px 2px rgba(35, 31, 32, 0.5)" }}
@@ -180,6 +189,13 @@ export function AllocationChart({ results, disabled }: AllocationChartProps) {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
+        {isStale && (
+          <div className="pointer-events-none absolute inset-0 flex items-start justify-end p-2">
+            <span className="rounded-md border border-neca-black/15 bg-white/85 px-2 py-1 text-xs font-semibold text-neca-black/70">
+              Showing previous valid chart (total must be 100% to update)
+            </span>
+          </div>
+        )}
       </div>
 
       <ol className="mt-4 grid gap-2 sm:grid-cols-2">
