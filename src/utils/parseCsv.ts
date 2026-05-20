@@ -33,7 +33,6 @@ function parseRow(row: Record<string, string>): LocalAuthority | null {
     imd: values.imd ?? 0,
     neet: values.neet ?? 0,
     ehcp: values.ehcp ?? 0,
-    level12: values.level12 ?? 0,
   };
 }
 

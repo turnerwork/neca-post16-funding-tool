@@ -87,7 +87,7 @@ export function AllocationChart({
 
   if (disabled) {
     return (
-      <section className="flex min-h-[420px] flex-col rounded-2xl border border-neca-black/10 bg-white p-6 shadow-sm">
+      <section className="flex min-h-[360px] flex-col rounded-2xl border border-neca-black/10 bg-white p-6 shadow-sm">
         <h2 className="text-lg font-bold text-neca-black">Allocation by local authority</h2>
         <div className="mt-8 flex flex-1 flex-col items-center justify-center rounded-xl border border-dashed border-neca-black/15 bg-neca-white px-6 text-center">
           <p className="text-base font-semibold text-neca-black/70">
@@ -114,13 +114,13 @@ export function AllocationChart({
         </p>
       </div>
 
-      <div className="relative h-[480px] w-full min-w-0">
+      <div className="relative h-[380px] w-full min-w-0">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={chartData}
             layout="vertical"
-            margin={{ top: 8, right: 16, left: 4, bottom: 8 }}
-            barCategoryGap="18%"
+            margin={{ top: 4, right: 16, left: 4, bottom: 4 }}
+            barCategoryGap="6%"
           >
             <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#231f2015" />
             <XAxis
@@ -139,7 +139,7 @@ export function AllocationChart({
               tickLine={false}
             />
             <Tooltip content={<CustomTooltip />} cursor={{ fill: "#00478a10" }} />
-            <Bar dataKey="funding" radius={[0, 6, 6, 0]} maxBarSize={32}>
+            <Bar dataKey="funding" radius={[0, 6, 6, 0]} maxBarSize={36}>
               {chartData.map((row) => (
                 <Cell
                   key={`cell-${row.name}`}

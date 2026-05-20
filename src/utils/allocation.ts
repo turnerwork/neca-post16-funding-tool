@@ -6,13 +6,7 @@ import type {
   Weightings,
 } from "../types";
 
-const CATEGORY_KEYS: CategoryKey[] = [
-  "pop2028",
-  "imd",
-  "neet",
-  "ehcp",
-  "level12",
-];
+const CATEGORY_KEYS: CategoryKey[] = ["pop2028", "imd", "neet", "ehcp"];
 
 function categoryTotals(data: LocalAuthority[]): Record<CategoryKey, number> {
   const totals = {} as Record<CategoryKey, number>;

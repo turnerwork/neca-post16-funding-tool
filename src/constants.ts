@@ -18,8 +18,8 @@ export const CATEGORIES: CategoryMeta[] = [
   },
   {
     key: "imd",
-    label: "IMD 20% deprived 16–17 population",
-    description: "IMD 20% deprived 16-17 population",
+    label: "IMD 20% most deprived LSOAs 16–17 population",
+    description: "IMD 20% most deprived LSOAs 16-17 population",
   },
   {
     key: "neet",
@@ -31,19 +31,13 @@ export const CATEGORIES: CategoryMeta[] = [
     label: "EHCPs 16–17",
     description: "EHCPs 16-17",
   },
-  {
-    key: "level12",
-    label: "Level 1–2 enrolment",
-    description: "Level 1-2 enrolment",
-  },
 ];
 
 export const DEFAULT_WEIGHTINGS: Record<CategoryKey, number> = {
-  pop2028: 20,
-  imd: 20,
-  neet: 20,
-  ehcp: 20,
-  level12: 20,
+  pop2028: 25,
+  imd: 25,
+  neet: 25,
+  ehcp: 25,
 };
 
 export const CSV_COLUMN_MAP: Record<string, CategoryKey | null> = {
@@ -52,6 +46,6 @@ export const CSV_COLUMN_MAP: Record<string, CategoryKey | null> = {
   "imd 20% deprived 16-17 population": "imd",
   "neet 16-17": "neet",
   "ehcps 16-17": "ehcp",
-  "level 1-2 enrolment": "level12",
+  "level 1-2 enrolment": null,
   "sen 16-17": null,
 };

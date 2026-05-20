@@ -22,7 +22,7 @@ export function WeightingForm({
         <div>
           <h2 className="text-lg font-bold text-neca-black">Category weightings</h2>
           <p className="mt-1 text-sm text-neca-black/65">
-            Set the percentage weighting for each indicator. All five must total
+            Set the percentage weighting for each indicator. All four must total
             100%.
           </p>
         </div>
@@ -31,11 +31,11 @@ export function WeightingForm({
           onClick={onReset}
           className="shrink-0 rounded-lg border border-neca-blue/30 px-3 py-1.5 text-xs font-semibold text-neca-blue transition hover:bg-neca-blue/5"
         >
-          Reset to 20% each
+          Reset to 25% each
         </button>
       </div>
 
-      <div className="mt-6 space-y-6">
+      <div className="mt-6 space-y-5">
         {CATEGORIES.map((category) => {
           const value = weightings[category.key];
           return (

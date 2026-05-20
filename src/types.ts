@@ -1,9 +1,4 @@
-export type CategoryKey =
-  | "pop2028"
-  | "imd"
-  | "neet"
-  | "ehcp"
-  | "level12";
+export type CategoryKey = "pop2028" | "imd" | "neet" | "ehcp";
 
 export interface LocalAuthority {
   name: string;
@@ -11,7 +6,6 @@ export interface LocalAuthority {
   imd: number;
   neet: number;
   ehcp: number;
-  level12: number;
 }
 
 export interface CategoryMeta {
