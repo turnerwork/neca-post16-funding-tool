@@ -12,15 +12,19 @@ import {
 import type { AllocationResult } from "../types";
 import { formatCurrency, formatPercent } from "../utils/allocation";
 
-const BAR_COLOURS = [
-  "#e4003b",
-  "#00478a",
-  "#33a38c",
-  "#f25c29",
-  "#8f3e8d",
-  "#005837",
-  "#ed1163",
-];
+const AUTHORITY_COLOURS: Record<string, string> = {
+  "County Durham": "#e4003b",
+  Gateshead: "#33a38c",
+  "Newcastle upon Tyne": "#00478a",
+  "North Tyneside": "#8f3e8d",
+  Northumberland: "#f25c29",
+  "South Tyneside": "#005837",
+  Sunderland: "#ed1163",
+};
+
+function getAuthorityColour(name: string): string {
+  return AUTHORITY_COLOURS[name] ?? "#231f20";
+}
 
 interface ChartRow {
   name: string;
@@ -131,8 +135,8 @@ export function AllocationChart({ results, disabled }: AllocationChartProps) {
             />
             <Tooltip content={<CustomTooltip />} cursor={{ fill: "#00478a10" }} />
             <Bar dataKey="funding" radius={[0, 6, 6, 0]} maxBarSize={32}>
-              {chartData.map((_, index) => (
-                <Cell key={`cell-${index}`} fill={BAR_COLOURS[index % BAR_COLOURS.length]} />
+              {chartData.map((row) => (
+                <Cell key={`cell-${row.name}`} fill={getAuthorityColour(row.name)} />
               ))}
               <LabelList
                 dataKey="funding"
@@ -179,14 +183,14 @@ export function AllocationChart({ results, disabled }: AllocationChartProps) {
       </div>
 
       <ol className="mt-4 grid gap-2 sm:grid-cols-2">
-        {chartData.map((row, index) => (
+        {chartData.map((row) => (
           <li
             key={row.name}
             className="flex items-center gap-2 rounded-lg bg-neca-white px-3 py-2 text-sm"
           >
             <span
               className="inline-block h-3 w-3 shrink-0 rounded-sm"
-              style={{ backgroundColor: BAR_COLOURS[index % BAR_COLOURS.length] }}
+              style={{ backgroundColor: getAuthorityColour(row.name) }}
               aria-hidden
             />
             <span className="font-medium text-neca-black">{row.name}</span>
