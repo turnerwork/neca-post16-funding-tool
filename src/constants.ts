@@ -13,8 +13,8 @@ export function snapWeighting(value: number): number {
 export const CATEGORIES: CategoryMeta[] = [
   {
     key: "pop2028",
-    label: "16–17 population (2028 forecast)",
-    description: "16-17 pop - 2028 forecast",
+    label: "16–17 population (average 2027-30 forecast)",
+    description: "16-17 pop - avg 2027-30 forecast",
   },
   {
     key: "imd",
@@ -42,7 +42,7 @@ export const DEFAULT_WEIGHTINGS: Record<CategoryKey, number> = {
 
 export const CSV_COLUMN_MAP: Record<string, CategoryKey | null> = {
   "local authority": null,
-  "16-17 pop - 2028 forecast": "pop2028",
+  "16-17 pop - avg 2027-30 forecast": "pop2028",
   "imd 20% deprived 16-17 population": "imd",
   "neet 16-17": "neet",
   "ehcps 16-17": "ehcp",
