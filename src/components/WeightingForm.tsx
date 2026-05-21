@@ -40,10 +40,10 @@ export function WeightingForm({
           const value = weightings[category.key];
           return (
             <div key={category.key}>
-              <div className="mb-2 flex items-end justify-between gap-3">
+              <div className="mb-2 flex items-start justify-between gap-3">
                 <label
                   htmlFor={`weight-${category.key}`}
-                  className="text-sm font-semibold text-neca-black"
+                  className="whitespace-pre-line text-sm font-semibold leading-snug text-neca-black"
                 >
                   {category.label}
                 </label>
@@ -59,7 +59,7 @@ export function WeightingForm({
                       onChange(category.key, Number(e.target.value) || 0)
                     }
                     className="w-[4.25rem] rounded-lg border border-neca-black/15 bg-neca-white px-2 py-1 text-right text-sm font-bold text-neca-black focus:border-neca-red focus:outline-none focus:ring-2 focus:ring-neca-red/20"
-                    aria-label={`${category.label} weighting percent`}
+                    aria-label={`${category.label.replace("\n", " ")} weighting percent`}
                   />
                   <span className="text-sm font-semibold text-neca-black/60">%</span>
                 </div>
