@@ -13,7 +13,7 @@ export function snapWeighting(value: number): number {
 export const CATEGORIES: CategoryMeta[] = [
   {
     key: "pop2028",
-    label: "16–17 population\n(average 2027-30 forecast)",
+    label: "16–17 population\n(average 2027-2030 projection)",
     description: "16-17 pop - avg 2027-30 forecast",
   },
   {
