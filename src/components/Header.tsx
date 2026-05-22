@@ -15,7 +15,7 @@ export function Header() {
           North East Mayoral Strategic Authority
         </p>
         <h1 className="mt-1 text-2xl font-extrabold text-neca-black sm:text-3xl">
-          NECA post-16 funding allocation tool
+          Post-16 funding allocation tool
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-neca-black/70">
           Explore how the {formatCurrency(TOTAL_FUNDING_POT)} post-16 sufficiency
