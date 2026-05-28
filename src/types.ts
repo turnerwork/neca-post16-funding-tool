@@ -1,8 +1,9 @@
-export type CategoryKey = "pop2028" | "imd" | "neet" | "ehcp";
+export type CategoryKey = "pop2028" | "popGrowth" | "imd" | "neet" | "ehcp";
 
 export interface LocalAuthority {
   name: string;
   pop2028: number;
+  popGrowth: number;
   imd: number;
   neet: number;
   ehcp: number;

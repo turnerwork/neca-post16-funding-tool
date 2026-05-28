@@ -1,4 +1,4 @@
-# NECA post-16 funding allocation tool
+# Post-16 funding allocation tool
 
 **Use the tool here (share this link with colleagues):**
 

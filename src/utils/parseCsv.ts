@@ -30,6 +30,7 @@ function parseRow(row: Record<string, string>): LocalAuthority | null {
   return {
     name,
     pop2028: values.pop2028 ?? 0,
+    popGrowth: values.popGrowth ?? 0,
     imd: values.imd ?? 0,
     neet: values.neet ?? 0,
     ehcp: values.ehcp ?? 0,
