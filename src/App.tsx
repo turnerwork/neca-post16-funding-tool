@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AllocationChart } from "./components/AllocationChart";
 import { Header } from "./components/Header";
 import { WeightingForm } from "./components/WeightingForm";
-import { DEFAULT_WEIGHTINGS, snapWeighting } from "./constants";
+import { CATEGORIES, DEFAULT_WEIGHTINGS, snapWeighting } from "./constants";
 import type {
   AllocationResult,
   CategoryKey,
@@ -49,6 +49,13 @@ export default function App() {
     allocations.length > 0 ? allocations : lastCommittedAllocations;
   const showingPreviousValidResult =
     !isValid && chartResults.length > 0 && authorities.length > 0;
+  const categoryTotalsText = useMemo(() => {
+    if (authorities.length === 0) return "";
+    return CATEGORIES.map(({ key, description }) => {
+      const total = authorities.reduce((sum, la) => sum + la[key], 0);
+      return `${description}: ${total.toLocaleString("en-GB")}`;
+    }).join(" | ");
+  }, [authorities]);
 
   const handleWeightChange = (key: CategoryKey, value: number) => {
     setWeightings((prev) => ({ ...prev, [key]: snapWeighting(value) }));
@@ -88,6 +95,12 @@ export default function App() {
               isStale={showingPreviousValidResult}
             />
           </div>
+        )}
+
+        {import.meta.env.DEV && categoryTotalsText && (
+          <p className="mt-4 rounded-md border border-neca-black/10 bg-white px-3 py-2 font-mono text-[11px] text-neca-black/65">
+            CSV category totals (dev only): {categoryTotalsText}
+          </p>
         )}
 
         <footer className="mt-10 border-t border-neca-black/10 pt-6 text-xs text-neca-black/50">
