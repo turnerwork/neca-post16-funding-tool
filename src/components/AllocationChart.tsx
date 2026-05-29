@@ -9,6 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { TOTAL_FUNDING_POT } from "../constants";
 import type { AllocationResult } from "../types";
 import { formatCurrency, formatPercent } from "../utils/allocation";
 
@@ -49,6 +50,22 @@ interface AllocationChartProps {
   isStale?: boolean;
 }
 
+function LegendItem({ row }: { row: ChartRow }) {
+  return (
+    <div className="flex items-center gap-2 rounded-lg bg-neca-white px-3 py-2 text-sm">
+      <span
+        className="inline-block h-3 w-3 shrink-0 rounded-sm"
+        style={{ backgroundColor: getAuthorityColour(row.name) }}
+        aria-hidden
+      />
+      <span className="font-medium text-neca-black">{row.name}</span>
+      <span className="ml-auto font-semibold text-neca-blue">
+        {formatCurrency(row.funding)}
+      </span>
+    </div>
+  );
+}
+
 function CustomTooltip({
   active,
   payload,
@@ -80,6 +97,9 @@ export function AllocationChart({
     funding: row.funding,
     percentOfPot: row.percentOfPot,
   }));
+
+  const leftLegend = chartData.slice(0, 4);
+  const rightLegend = chartData.slice(4);
 
   const maxFunding = chartData[0]?.funding ?? 0;
   /** Slight headroom on the axis; labels sit inside the bars. */
@@ -198,24 +218,24 @@ export function AllocationChart({
         )}
       </div>
 
-      <ol className="mt-4 grid gap-2 sm:grid-cols-2">
-        {chartData.map((row) => (
-          <li
-            key={row.name}
-            className="flex items-center gap-2 rounded-lg bg-neca-white px-3 py-2 text-sm"
-          >
-            <span
-              className="inline-block h-3 w-3 shrink-0 rounded-sm"
-              style={{ backgroundColor: getAuthorityColour(row.name) }}
-              aria-hidden
-            />
-            <span className="font-medium text-neca-black">{row.name}</span>
-            <span className="ml-auto font-semibold text-neca-blue">
-              {formatCurrency(row.funding)}
+      <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+        <div className="flex flex-col gap-2">
+          {leftLegend.map((row) => (
+            <LegendItem key={row.name} row={row} />
+          ))}
+        </div>
+        <div className="grid grid-rows-4 gap-2">
+          {rightLegend.map((row) => (
+            <LegendItem key={row.name} row={row} />
+          ))}
+          <div className="flex items-center gap-2 rounded-lg border border-neca-black/10 bg-white px-3 py-2 text-sm">
+            <span className="font-bold text-neca-black">Total</span>
+            <span className="ml-auto font-bold text-neca-blue">
+              {formatCurrency(TOTAL_FUNDING_POT)}
             </span>
-          </li>
-        ))}
-      </ol>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

@@ -22,6 +22,39 @@ function categoryTotals(data: LocalAuthority[]): Record<CategoryKey, number> {
   return totals;
 }
 
+/** Round to whole pounds so displayed amounts always sum exactly to the pot. */
+function roundToExactPot(
+  rows: { name: string; shareScore: number; rawFunding: number }[],
+): AllocationResult[] {
+  if (rows.length === 0) return [];
+
+  const rounded = rows.map((row) => {
+    const floored = Math.floor(row.rawFunding);
+    return {
+      name: row.name,
+      shareScore: row.shareScore,
+      funding: floored,
+      remainder: row.rawFunding - floored,
+    };
+  });
+
+  let shortfall = TOTAL_FUNDING_POT - rounded.reduce((sum, row) => sum + row.funding, 0);
+  const byRemainder = [...rounded].sort((a, b) => b.remainder - a.remainder);
+
+  for (let i = 0; i < shortfall; i++) {
+    byRemainder[i].funding += 1;
+  }
+
+  return rounded
+    .map((row) => ({
+      name: row.name,
+      shareScore: row.shareScore,
+      funding: row.funding,
+      percentOfPot: (row.funding / TOTAL_FUNDING_POT) * 100,
+    }))
+    .sort((a, b) => b.funding - a.funding);
+}
+
 export function calculateAllocations(
   data: LocalAuthority[],
   weightings: Weightings,
@@ -40,20 +73,16 @@ export function calculateAllocations(
 
   const totalShareScore = withScores.reduce((sum, row) => sum + row.shareScore, 0);
 
-  const results: AllocationResult[] = withScores.map((row) => {
-    const funding =
+  const rawRows = withScores.map((row) => ({
+    name: row.name,
+    shareScore: row.shareScore,
+    rawFunding:
       totalShareScore > 0
         ? (row.shareScore / totalShareScore) * TOTAL_FUNDING_POT
-        : 0;
-    return {
-      name: row.name,
-      shareScore: row.shareScore,
-      funding,
-      percentOfPot: (funding / TOTAL_FUNDING_POT) * 100,
-    };
-  });
+        : 0,
+  }));
 
-  return results.sort((a, b) => b.funding - a.funding);
+  return roundToExactPot(rawRows);
 }
 
 export function sumWeightings(weightings: Weightings): number {
