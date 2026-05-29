@@ -228,9 +228,9 @@ export function AllocationChart({
           {rightLegend.map((row) => (
             <LegendItem key={row.name} row={row} />
           ))}
-          <div className="flex items-center gap-2 rounded-lg border border-neca-black/10 bg-white px-3 py-2 text-sm">
+          <div className="flex items-center gap-2 border-t border-neca-black bg-white px-3 pt-2 pb-2 text-sm">
             <span className="font-bold text-neca-black">Total</span>
-            <span className="ml-auto font-bold text-neca-blue">
+            <span className="ml-auto font-bold text-neca-black">
               {formatCurrency(TOTAL_FUNDING_POT)}
             </span>
           </div>
