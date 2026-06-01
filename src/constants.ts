@@ -17,11 +17,6 @@ export const CATEGORIES: CategoryMeta[] = [
     description: "16-17 pop - avg 2027-30 forecast",
   },
   {
-    key: "popGrowth",
-    label: "16–17 population growth\n(2024 to peak year)",
-    description: "16-17 pop growth - 2024 to peak year",
-  },
-  {
     key: "imd",
     label: "IMD 20% most deprived LSOAs 16–17 population",
     description: "IMD 20% most deprived LSOAs 16-17 population",
@@ -39,19 +34,18 @@ export const CATEGORIES: CategoryMeta[] = [
 ];
 
 export const DEFAULT_WEIGHTINGS: Record<CategoryKey, number> = {
-  pop2028: 20,
-  popGrowth: 20,
-  imd: 20,
-  neet: 20,
-  ehcp: 20,
+  pop2028: 25,
+  imd: 25,
+  neet: 25,
+  ehcp: 25,
 };
 
 export const CSV_COLUMN_MAP: Record<string, CategoryKey | null> = {
   "local authority": null,
   "16-17 pop - avg 2027-30 forecast": "pop2028",
-  "16-17 pop growth - 2024 to peak year": "popGrowth",
-  "16-17 pop growth - 2024 to peak": "popGrowth",
-  "16-17 pop growth 2024 to peak year": "popGrowth",
+  "16-17 pop growth - 2024 to peak year": null,
+  "16-17 pop growth - 2024 to peak": null,
+  "16-17 pop growth 2024 to peak year": null,
   "imd 20% deprived 16-17 population": "imd",
   "imd 20% most deprived lsoas 16-17 population": "imd",
   "neet 16-17": "neet",
