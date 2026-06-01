@@ -94,7 +94,7 @@ export function AllocationChart({
   const chartData: ChartRow[] = results.map((row) => ({
     name: row.name,
     shortName: shortenLaName(row.name),
-    funding: row.funding,
+    funding: row.displayFunding,
     percentOfPot: row.percentOfPot,
   }));
 
@@ -236,6 +236,10 @@ export function AllocationChart({
           </div>
         </div>
       </div>
+
+      <p className="mt-2 text-right text-xs italic text-neca-black/65">
+        NB - the displayed individual local authority allocations are rounded to the nearest £.
+      </p>
     </section>
   );
 }

@@ -19,6 +19,9 @@ export type Weightings = Record<CategoryKey, number>;
 export interface AllocationResult {
   name: string;
   shareScore: number;
+  /** Exact allocation (sums to the full pot before display rounding). */
   funding: number;
+  /** Nearest-pound value shown in the chart and legend. */
+  displayFunding: number;
   percentOfPot: number;
 }
