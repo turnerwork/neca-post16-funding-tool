@@ -30,7 +30,7 @@ export const CATEGORIES: CategoryMeta[] = [
     key: "ehcp",
     label: "EHCPs 14–15",
     description:
-      "EHCPs 14-15 Younger age range used due to differences in post-16 EHCP policies across LAs",
+      "EHCPs 14-15 (Younger age range used due to differences in post-16 EHCP policies across LAs)",
   },
 ];
 
