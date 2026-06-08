@@ -28,8 +28,9 @@ export const CATEGORIES: CategoryMeta[] = [
   },
   {
     key: "ehcp",
-    label: "EHCPs 16–17",
-    description: "EHCPs 16-17",
+    label: "EHCPs 14–15",
+    description:
+      "EHCPs 14-15 Younger age range used due to differences in post-16 EHCP policies across LAs",
   },
 ];
 
@@ -49,7 +50,7 @@ export const CSV_COLUMN_MAP: Record<string, CategoryKey | null> = {
   "imd 20% deprived 16-17 population": "imd",
   "imd 20% most deprived lsoas 16-17 population": "imd",
   "neet 16-17": "neet",
-  "ehcps 16-17": "ehcp",
+  "ehcps 14-15": "ehcp",
   "level 1-2 enrolment": null,
   "sen 16-17": null,
 };
